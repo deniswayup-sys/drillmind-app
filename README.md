@@ -1,0 +1,2 @@
+# drillmind-app
+app drilmind
