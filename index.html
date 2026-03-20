@@ -1,41 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>DrillMind App</title>
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #020617;
-      color: white;
-      text-align: center;
-    }
-    .box {
-      margin-top: 100px;
-    }
-    input {
-      padding: 10px;
-      margin: 5px;
-      width: 250px;
-    }
-    button {
-      padding: 10px 20px;
-      background: #22c55e;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <title>DrillMind Login</title>
 </head>
 <body>
 
-<div class="box">
-  <h1>Login DrillMind</h1>
-  <input placeholder="Email"><br>
-  <input placeholder="Senha" type="password"><br>
-  <button>Entrar</button>
-</div>
+<h2>Login DrillMind</h2>
+
+<input type="email" id="email" placeholder="Email"><br><br>
+<input type="password" id="password" placeholder="Senha"><br><br>
+
+<button onclick="login()">Entrar</button>
+
+<p id="status"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabase = window.supabase.createClient(
+  "COLE_AQUI_SUA_URL",
+  "COLE_AQUI_SUA_ANON_KEY"
+);
+
+async function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    document.getElementById("status").innerText = "Erro: " + error.message;
+  } else {
+    document.getElementById("status").innerText = "Login realizado!";
+  }
+}
+</script>
 
 </body>
 </html>
